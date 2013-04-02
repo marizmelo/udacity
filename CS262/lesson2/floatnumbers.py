@@ -18,11 +18,11 @@ def t_NUMBER(token):
 
 numbers = "-4.6"  # invalid: 3.4.5.5 a23
 
-identifierlex = lex.lex()
-identifierlex.input(numbers)
+floatlexer = lex.lex()
+floatlexer.input(numbers)
 
 
 while True:
-  tok = identifierlex.token() # return next token available
+  tok = floatlexer.token() # return next token available
   if not tok: break
   print tok
