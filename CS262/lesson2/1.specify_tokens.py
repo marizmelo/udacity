@@ -1,11 +1,12 @@
-import re # gives access to regular expressions library
 import ply.lex as lex # import lex analyzer lib
 
 tokens = (
+  'NEWLINE', # \n
   'LANGLE', # <
   'LANGLESLASH', # </
   'RANGLE', # >
   'EQUAL', # = 
+  'NUMBER', # 33
   'STRING', # "hello"
   'WORD', # Welcome!
   )
@@ -18,29 +19,35 @@ def t_error(token):
 
 # Specifying Tokens
 
+
+# new lines
+def t_newline(token):
+  r'\n'
+  token.lexer.lineno += 1
+  pass
+
 # Write code for the LANGLESLASH to match </ in our HTML.
+def t_LANGLE(token):
+  r'<'
+  return token
 
 def t_LANGLESLASH(token):
   r'</'
-  return token
-
-def t_LANGLE(token):
-  r'<'
   return token
 
 def t_RANGLE(token):
   r'>'
   return token
 
-
 def t_EQUAL(token):
   r'='
   return token
 
-# # match whitespaces
-# def t_WHITESPACE(token):
-#   r' '
-#   pass
+# match numbers strings and convert them to int
+def t_NUMBER(token):
+  r"[0-9]+"
+  token.value = int(token.value)
+  return token
 
 # match double quoted string without a " inside
 def t_STRING(token):
@@ -50,17 +57,13 @@ def t_STRING(token):
 
 # WORD is any number of chars EXCEPT <> or space
 def t_WORD(token):
-  r"[^ <>]+"
+  r"[^ <>\n]+"
   return token
 
-# # match numbers strings and convert them to int
-# def t_NUMBER(token):
-#   r"[0-9]+"
-#   token.value = int(token.value)
-#   return token
-
-
-webpage = "This is <b>my</b> webpage!"
+#webpage = '"This" is 33 <b>my</b> webpage!'
+webpage = """Line1
+  Line2
+"""
 
 htmllexer = lex.lex() # tells lex to use all token def above
 htmllexer.input(webpage) # which string to break up
