@@ -1,7 +1,7 @@
 Lesson 4 Notes
 ==============
 
-Memoization - from Wikipedia: technique used primarily to speed up computer programs by having function calls avoid repeating the calculation of results for previously processed inputs.
+Memoization is a computer science technique in which we keep a "chart" or "record" of previous computations and compute new values in terms of previous answers.
 
 Ambiguity in JS
 
@@ -25,3 +25,11 @@ Fibonacci as a way to teach recursion
         return 1
       else:
         return fibo(n - 1) + fibo(n - 2)
+
+Super slow implementation of Fibonacci function (brute force)
+
+Increasing the number by 1 is duplicating the time need to calculate the sequence
+
+
+Parsing state is a rewrite rule from the grammar augmented with 1 point on the right-hand side or the rule.
+
